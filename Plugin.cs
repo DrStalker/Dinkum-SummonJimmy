@@ -12,12 +12,12 @@ namespace SummonJimmy;
 public class Plugin : BaseUnityPlugin
 {
     private readonly ConfigEntry<KeyCode> _hotKey;
+    private readonly ConfigEntry<KeyCode> _hotKeyDisable;
     public Plugin()
     {
 
-    _hotKey = Config.Bind("General", "HotKey", KeyCode.F10,
-        "Press to summon Jimmy");
-
+    _hotKey        = Config.Bind("General", "HotKey",        KeyCode.F10,"Press to summon Jimmy");
+    _hotKeyDisable = Config.Bind("General", "HotKeyDisable", KeyCode.F11,"Press to dismiss Jimmy");
     }
     
     private void Awake()
@@ -34,6 +34,11 @@ public class Plugin : BaseUnityPlugin
             MarketPlaceManager.manage.spawnJimmysBoat();
 
         }
+        else if (Input.GetKeyDown(_hotKeyDisable.Value))
+        {
+            MarketPlaceManager.manage.despawnJimmiesBoat();
+        }
+
     }
 
 
